@@ -131,13 +131,14 @@ Gets day-ahead prices for multiple price areas.
 Represents the complete response from the API:
 
 ```csharp
-public record DayAheadPriceResponse(
-    int Total,                                    // Total number of available records
-    string Filters,                               // Applied filters as JSON string
-    int Limit,                                    // Limit applied to the query
-    string Dataset,                               // Dataset name ("DayAheadPrices")
-    IReadOnlyList<DayAheadPriceRecord> Records    // Collection of price records
-);
+public class DayAheadPriceResponse
+{
+    public int Total { get; set; }                                    // Total number of available records
+    public string Filters { get; set; }                              // Applied filters as JSON string
+    public int Limit { get; set; }                                   // Limit applied to the query
+    public string Dataset { get; set; }                              // Dataset name ("DayAheadPrices")
+    public IReadOnlyList<DayAheadPriceRecord> Records { get; set; }  // Collection of price records
+}
 ```
 
 #### `DayAheadPriceRecord`
@@ -145,13 +146,14 @@ public record DayAheadPriceResponse(
 Represents a single day-ahead price record:
 
 ```csharp
-public record DayAheadPriceRecord(
-    DateTime TimeUtc,           // UTC timestamp
-    DateTime TimeDk,            // Danish local timestamp
-    string PriceArea,           // Price area (e.g., "DK1", "DK2")
-    decimal DayAheadPriceEur,   // Price in EUR per MWh
-    decimal DayAheadPriceDkk    // Price in DKK per MWh
-);
+public class DayAheadPriceRecord
+{
+    public DateTime TimeUtc { get; set; }           // UTC timestamp
+    public DateTime TimeDk { get; set; }            // Danish local timestamp
+    public string PriceArea { get; set; }           // Price area (e.g., "DK1", "DK2")
+    public decimal DayAheadPriceEur { get; set; }   // Price in EUR per MWh
+    public decimal DayAheadPriceDkk { get; set; }   // Price in DKK per MWh
+}
 ```
 
 ## Price Areas
