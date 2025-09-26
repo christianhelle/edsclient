@@ -4,11 +4,9 @@ on:
   release:
     types: [published]
   workflow_dispatch:
-    inputs:
-      version:
-        description: 'Version to release (e.g., 1.0.0)'
-        required: true
-        type: string
+
+env:
+  VERSION: 0.1.${{ github.run_number }}
 
 jobs:
   release:
@@ -29,14 +27,19 @@ jobs:
       if: github.event_name == 'release'
       run: |
         VERSION=${GITHUB_REF#refs/tags/v}
-        echo "PACKAGE_VERSION=$VERSION" >> $GITHUB_ENV
-        echo "Release version: $VERSION"
+        # Extract major.minor from tag and append GitHub run number as build
+        MAJOR_MINOR=$(echo $VERSION | cut -d. -f1-2)
+        PACKAGE_VERSION="${MAJOR_MINOR}.${{ github.run_number }}"
+        echo "PACKAGE_VERSION=$PACKAGE_VERSION" >> $GITHUB_ENV
+        echo "Release version: $PACKAGE_VERSION (from tag: $VERSION)"
         
-    - name: Set version from manual input
+    - name: Set version from environment variable
       if: github.event_name == 'workflow_dispatch'
       run: |
-        echo "PACKAGE_VERSION=${{ github.event.inputs.version }}" >> $GITHUB_ENV
-        echo "Manual release version: ${{ github.event.inputs.version }}"
+        # Use the VERSION environment variable
+        PACKAGE_VERSION="${{ env.VERSION }}"
+        echo "PACKAGE_VERSION=$PACKAGE_VERSION" >> $GITHUB_ENV
+        echo "Manual release version: $PACKAGE_VERSION"
         
     - name: Update project version
       run: |
