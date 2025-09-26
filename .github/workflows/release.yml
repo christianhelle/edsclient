@@ -1,0 +1,65 @@
+name: Release to NuGet
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (e.g., 1.0.0)'
+        required: true
+        type: string
+
+jobs:
+  release:
+    name: Release to NuGet
+    runs-on: ubuntu-latest
+    environment: production
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+        
+    - name: Set version from release tag
+      if: github.event_name == 'release'
+      run: |
+        VERSION=${GITHUB_REF#refs/tags/v}
+        echo "PACKAGE_VERSION=$VERSION" >> $GITHUB_ENV
+        echo "Release version: $VERSION"
+        
+    - name: Set version from manual input
+      if: github.event_name == 'workflow_dispatch'
+      run: |
+        echo "PACKAGE_VERSION=${{ github.event.inputs.version }}" >> $GITHUB_ENV
+        echo "Manual release version: ${{ github.event.inputs.version }}"
+        
+    - name: Update project version
+      run: |
+        sed -i "s/<Version>.*<\/Version>/<Version>${{ env.PACKAGE_VERSION }}<\/Version>/" src/EnergiDataService.Client/EnergiDataService.Client.csproj
+        cat src/EnergiDataService.Client/EnergiDataService.Client.csproj
+        
+    - name: Restore dependencies
+      run: dotnet restore src/EnergiDataService.Client.sln
+      
+    - name: Build solution
+      run: dotnet build src/EnergiDataService.Client.sln --configuration Release --no-restore
+      
+    - name: Run tests
+      run: dotnet test src/EnergiDataService.Client.sln --configuration Release --no-build --verbosity normal
+      
+    - name: Create NuGet package
+      run: dotnet pack src/EnergiDataService.Client/EnergiDataService.Client.csproj --configuration Release --no-build --output ./artifacts
+      
+    - name: Publish to NuGet.org
+      run: dotnet nuget push ./artifacts/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+      
+    - name: Upload NuGet package artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: nuget-package-release
+        path: ./artifacts/*.nupkg
