@@ -5,24 +5,35 @@ namespace EnergiDataService.Client.Models;
 /// <summary>
 /// Represents the complete response from the Day Ahead Prices API
 /// </summary>
-/// <param name="Total">Total number of available records</param>
-/// <param name="Filters">Applied filters as a JSON string</param>
-/// <param name="Limit">Limit applied to the query</param>
-/// <param name="Dataset">The dataset name</param>
-/// <param name="Records">Collection of day-ahead price records</param>
-public record DayAheadPriceResponse(
-    [property: JsonPropertyName("total")]
-    int Total,
+public class DayAheadPriceResponse
+{
+    /// <summary>
+    /// Total number of available records
+    /// </summary>
+    [JsonPropertyName("total")]
+    public int Total { get; set; }
     
-    [property: JsonPropertyName("filters")]
-    string Filters,
+    /// <summary>
+    /// Applied filters as a JSON string
+    /// </summary>
+    [JsonPropertyName("filters")]
+    public string Filters { get; set; } = string.Empty;
     
-    [property: JsonPropertyName("limit")]
-    int Limit,
+    /// <summary>
+    /// Limit applied to the query
+    /// </summary>
+    [JsonPropertyName("limit")]
+    public int Limit { get; set; }
     
-    [property: JsonPropertyName("dataset")]
-    string Dataset,
+    /// <summary>
+    /// The dataset name
+    /// </summary>
+    [JsonPropertyName("dataset")]
+    public string Dataset { get; set; } = string.Empty;
     
-    [property: JsonPropertyName("records")]
-    IReadOnlyList<DayAheadPriceRecord> Records
-);
+    /// <summary>
+    /// Collection of day-ahead price records
+    /// </summary>
+    [JsonPropertyName("records")]
+    public IReadOnlyList<DayAheadPriceRecord> Records { get; set; } = new List<DayAheadPriceRecord>();
+}

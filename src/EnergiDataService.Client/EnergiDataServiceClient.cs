@@ -56,7 +56,7 @@ public class EnergiDataServiceClient
         var response = await _httpClient.GetAsync(url, cancellationToken);
         response.EnsureSuccessStatusCode();
 
-        var content = await response.Content.ReadAsStringAsync(cancellationToken);
+        var content = await response.Content.ReadAsStringAsync();
         var result = JsonSerializer.Deserialize<DayAheadPriceResponse>(content, _jsonOptions);
 
         return result ?? throw new InvalidOperationException("Failed to deserialize response");

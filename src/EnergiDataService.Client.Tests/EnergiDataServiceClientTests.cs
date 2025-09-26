@@ -19,29 +19,32 @@ public class EnergiDataServiceClientTests
     {
         // Arrange
         var mockHttp = new MockHttpMessageHandler();
-        var expectedResponse = new DayAheadPriceResponse(
-            Total: 2,
-            Filters: "{\"PriceArea\":[\"DK1\"]}",
-            Limit: 100,
-            Dataset: "DayAheadPrices",
-            Records: new List<DayAheadPriceRecord>
+        var expectedResponse = new DayAheadPriceResponse
+        {
+            Total = 2,
+            Filters = "{\"PriceArea\":[\"DK1\"]}",
+            Limit = 100,
+            Dataset = "DayAheadPrices",
+            Records = new List<DayAheadPriceRecord>
             {
-                new(
-                    TimeUtc: DateTime.Parse("2025-09-27T21:00:00"),
-                    TimeDk: DateTime.Parse("2025-09-27T23:00:00"),
-                    PriceArea: "DK1",
-                    DayAheadPriceEur: 99.27m,
-                    DayAheadPriceDkk: 740.95m
-                ),
-                new(
-                    TimeUtc: DateTime.Parse("2025-09-27T20:00:00"),
-                    TimeDk: DateTime.Parse("2025-09-27T22:00:00"),
-                    PriceArea: "DK1",
-                    DayAheadPriceEur: 104.44m,
-                    DayAheadPriceDkk: 779.54m
-                )
+                new DayAheadPriceRecord
+                {
+                    TimeUtc = DateTime.Parse("2025-09-27T21:00:00"),
+                    TimeDk = DateTime.Parse("2025-09-27T23:00:00"),
+                    PriceArea = "DK1",
+                    DayAheadPriceEur = 99.27m,
+                    DayAheadPriceDkk = 740.95m
+                },
+                new DayAheadPriceRecord
+                {
+                    TimeUtc = DateTime.Parse("2025-09-27T20:00:00"),
+                    TimeDk = DateTime.Parse("2025-09-27T22:00:00"),
+                    PriceArea = "DK1",
+                    DayAheadPriceEur = 104.44m,
+                    DayAheadPriceDkk = 779.54m
+                }
             }
-        );
+        };
 
         var responseJson = JsonSerializer.Serialize(expectedResponse, new JsonSerializerOptions
         {
@@ -70,29 +73,32 @@ public class EnergiDataServiceClientTests
     {
         // Arrange
         var mockHttp = new MockHttpMessageHandler();
-        var expectedResponse = new DayAheadPriceResponse(
-            Total: 2,
-            Filters: "{\"PriceArea\":[\"DK1\",\"DK2\"]}",
-            Limit: 100,
-            Dataset: "DayAheadPrices",
-            Records: new List<DayAheadPriceRecord>
+        var expectedResponse = new DayAheadPriceResponse
+        {
+            Total = 2,
+            Filters = "{\"PriceArea\":[\"DK1\",\"DK2\"]}",
+            Limit = 100,
+            Dataset = "DayAheadPrices",
+            Records = new List<DayAheadPriceRecord>
             {
-                new(
-                    TimeUtc: DateTime.Parse("2025-09-27T21:00:00"),
-                    TimeDk: DateTime.Parse("2025-09-27T23:00:00"),
-                    PriceArea: "DK1",
-                    DayAheadPriceEur: 99.27m,
-                    DayAheadPriceDkk: 740.95m
-                ),
-                new(
-                    TimeUtc: DateTime.Parse("2025-09-27T21:00:00"),
-                    TimeDk: DateTime.Parse("2025-09-27T23:00:00"),
-                    PriceArea: "DK2",
-                    DayAheadPriceEur: 102.15m,
-                    DayAheadPriceDkk: 762.31m
-                )
+                new DayAheadPriceRecord
+                {
+                    TimeUtc = DateTime.Parse("2025-09-27T21:00:00"),
+                    TimeDk = DateTime.Parse("2025-09-27T23:00:00"),
+                    PriceArea = "DK1",
+                    DayAheadPriceEur = 99.27m,
+                    DayAheadPriceDkk = 740.95m
+                },
+                new DayAheadPriceRecord
+                {
+                    TimeUtc = DateTime.Parse("2025-09-27T21:00:00"),
+                    TimeDk = DateTime.Parse("2025-09-27T23:00:00"),
+                    PriceArea = "DK2",
+                    DayAheadPriceEur = 102.15m,
+                    DayAheadPriceDkk = 762.31m
+                }
             }
-        );
+        };
 
         var responseJson = JsonSerializer.Serialize(expectedResponse, new JsonSerializerOptions
         {
@@ -121,13 +127,14 @@ public class EnergiDataServiceClientTests
     {
         // Arrange
         var mockHttp = new MockHttpMessageHandler();
-        var expectedResponse = new DayAheadPriceResponse(
-            Total: 50,
-            Filters: "{\"PriceArea\":[\"DK1\"]}",
-            Limit: 50,
-            Dataset: "DayAheadPrices",
-            Records: new List<DayAheadPriceRecord>()
-        );
+        var expectedResponse = new DayAheadPriceResponse
+        {
+            Total = 50,
+            Filters = "{\"PriceArea\":[\"DK1\"]}",
+            Limit = 50,
+            Dataset = "DayAheadPrices",
+            Records = new List<DayAheadPriceRecord>()
+        };
 
         var responseJson = JsonSerializer.Serialize(expectedResponse, new JsonSerializerOptions
         {

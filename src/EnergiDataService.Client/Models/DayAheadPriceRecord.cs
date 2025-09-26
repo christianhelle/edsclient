@@ -5,24 +5,35 @@ namespace EnergiDataService.Client.Models;
 /// <summary>
 /// Represents a single day-ahead price record from the Energi Data Service
 /// </summary>
-/// <param name="TimeUtc">The UTC timestamp for this price record</param>
-/// <param name="TimeDk">The Danish local timestamp for this price record</param>
-/// <param name="PriceArea">The price area (e.g., DK1, DK2)</param>
-/// <param name="DayAheadPriceEur">Day-ahead price in EUR per MWh</param>
-/// <param name="DayAheadPriceDkk">Day-ahead price in DKK per MWh</param>
-public record DayAheadPriceRecord(
-    [property: JsonPropertyName("TimeUTC")]
-    DateTime TimeUtc,
+public class DayAheadPriceRecord
+{
+    /// <summary>
+    /// The UTC timestamp for this price record
+    /// </summary>
+    [JsonPropertyName("TimeUTC")]
+    public DateTime TimeUtc { get; set; }
     
-    [property: JsonPropertyName("TimeDK")]
-    DateTime TimeDk,
+    /// <summary>
+    /// The Danish local timestamp for this price record
+    /// </summary>
+    [JsonPropertyName("TimeDK")]
+    public DateTime TimeDk { get; set; }
     
-    [property: JsonPropertyName("PriceArea")]
-    string PriceArea,
+    /// <summary>
+    /// The price area (e.g., DK1, DK2)
+    /// </summary>
+    [JsonPropertyName("PriceArea")]
+    public string PriceArea { get; set; } = string.Empty;
     
-    [property: JsonPropertyName("DayAheadPriceEUR")]
-    decimal DayAheadPriceEur,
+    /// <summary>
+    /// Day-ahead price in EUR per MWh
+    /// </summary>
+    [JsonPropertyName("DayAheadPriceEUR")]
+    public decimal DayAheadPriceEur { get; set; }
     
-    [property: JsonPropertyName("DayAheadPriceDKK")]
-    decimal DayAheadPriceDkk
-);
+    /// <summary>
+    /// Day-ahead price in DKK per MWh
+    /// </summary>
+    [JsonPropertyName("DayAheadPriceDKK")]
+    public decimal DayAheadPriceDkk { get; set; }
+}
