@@ -73,7 +73,6 @@ services.AddEnergiDataServiceClient();
 services.AddEnergiDataServiceClient(client =>
 {
     client.Timeout = TimeSpan.FromSeconds(30);
-    client.BaseAddress = new Uri("https://api.energidataservice.dk");
 });
 ```
 
@@ -106,6 +105,7 @@ public class EnergyService
 Gets day-ahead prices for a single price area.
 
 **Parameters:**
+
 - `priceArea`: Price area code (e.g., "DK1", "DK2")
 - `limit`: Maximum number of records to retrieve (default: 100)
 - `cancellationToken`: Cancellation token
@@ -117,6 +117,7 @@ Gets day-ahead prices for a single price area.
 Gets day-ahead prices for multiple price areas.
 
 **Parameters:**
+
 - `priceAreas`: Collection of price area codes
 - `limit`: Maximum number of records to retrieve (default: 100)
 - `cancellationToken`: Cancellation token
@@ -210,7 +211,7 @@ services.AddHttpClient<EnergiDataServiceClient>()
     .AddPolicyHandler(Policy.TimeoutAsync<HttpResponseMessage>(30))
     .AddPolicyHandler(Policy
         .Handle<HttpRequestException>()
-        .WaitAndRetryAsync(3, retryAttempt => 
+        .WaitAndRetryAsync(3, retryAttempt =>
             TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))));
 ```
 
@@ -293,3 +294,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Energi Data Service API Documentation](https://www.energidataservice.dk/tso-electricity/dayaheadprices)
 - [Danish Energy Agency](https://ens.dk/en)
 - [Energinet](https://www.energinet.dk/en)
+
