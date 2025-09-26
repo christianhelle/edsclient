@@ -6,13 +6,12 @@
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
     
-    <!-- NuGet Package Metadata -->
     <PackageId>EnergiDataService.Client</PackageId>
     <Version>1.0.0</Version>
-    <Authors>Christian Helle</Authors>
-    <Company>Christian Helle</Company>
+    <Authors>Christian Resma Helle</Authors>
+    <Company>Christian Resma Helle</Company>
     <Description>A .NET client library for consuming day-ahead energy prices from Energi Data Service (Energinet)</Description>
-    <PackageTags>energi;data;service;energinet;day-ahead;prices;energy;denmark;api;client</PackageTags>
+    <PackageTags>energidataservice;energinet;day-ahead;prices;energy;denmark;</PackageTags>
     <PackageProjectUrl>https://github.com/christianhelle/edsclient</PackageProjectUrl>
     <RepositoryUrl>https://github.com/christianhelle/edsclient</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
