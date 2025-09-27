@@ -1,4 +1,4 @@
-# EnergiDataService.Client
+# Energi Data Service for .NET
 
 A .NET client library for consuming day-ahead energy prices from the Danish [Energi Data Service](https://www.energidataservice.dk/) API.
 
