@@ -294,6 +294,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Related Links
 
 - [Energi Data Service API Documentation](https://www.energidataservice.dk/tso-electricity/dayaheadprices)
-- [Danish Energy Agency](https://ens.dk/en)
-- [Energinet](https://www.energinet.dk/en)
+- [Danish Energy Agency](https://ens.dk)
+- [Energinet](https://www.energinet.dk)
 
