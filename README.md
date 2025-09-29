@@ -2,7 +2,8 @@
 
 A .NET client library for consuming day-ahead energy prices from the Danish [Energi Data Service](https://www.energidataservice.dk/) API.
 
-[![NuGet](https://img.shields.io/nuget/v/EnergiDataService.Client.svg)](https://www.nuget.org/packages/EnergiDataService.Client)
+[![NuGet Version](https://img.shields.io/nuget/v/EnergiDataService.Client.svg)](https://www.nuget.org/packages/EnergiDataService.Client)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/EnergiDataService.Client.svg)](https://www.nuget.org/packages/EnergiDataService.Client)
 [![Build Status](https://github.com/christianhelle/edsclient/workflows/Build/badge.svg)](https://github.com/christianhelle/edsclient/actions)
 
 ## Features
