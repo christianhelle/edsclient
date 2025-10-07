@@ -61,6 +61,11 @@ jobs:
     - name: Create NuGet package
       run: dotnet pack src/EnergiDataService.Client/EnergiDataService.Client.csproj --configuration Release --no-build --output ./artifacts
       
+    - name: Login to NuGet
+      uses: NuGet/login@v1
+      with:
+        nuget-server: https://api.nuget.org/v3/index.json
+      
     - name: Publish to NuGet.org
       run: dotnet nuget push ./artifacts/*.nupkg --source https://api.nuget.org/v3/index.json --skip-duplicate
       

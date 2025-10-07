@@ -51,12 +51,19 @@ permissions:
   contents: read   # Required for repository checkout
 ```
 
-The publish step no longer uses `--api-key`:
+The workflow includes the `NuGet/login@v1` action to handle OIDC authentication:
 
 ```yaml
+- name: Login to NuGet
+  uses: NuGet/login@v1
+  with:
+    nuget-server: https://api.nuget.org/v3/index.json
+
 - name: Publish to NuGet.org
   run: dotnet nuget push ./artifacts/*.nupkg --source https://api.nuget.org/v3/index.json --skip-duplicate
 ```
+
+The `NuGet/login@v1` action automatically obtains a temporary API key using the OIDC token, so no `--api-key` parameter is needed in the push command.
 
 ## Testing the Setup
 
