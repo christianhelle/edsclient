@@ -13,6 +13,9 @@ jobs:
     name: Release to NuGet
     runs-on: ubuntu-latest
     environment: production
+    permissions:
+      id-token: write
+      contents: read
     
     steps:
     - name: Checkout code
@@ -59,7 +62,7 @@ jobs:
       run: dotnet pack src/EnergiDataService.Client/EnergiDataService.Client.csproj --configuration Release --no-build --output ./artifacts
       
     - name: Publish to NuGet.org
-      run: dotnet nuget push ./artifacts/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+      run: dotnet nuget push ./artifacts/*.nupkg --source https://api.nuget.org/v3/index.json --skip-duplicate
       
     - name: Upload NuGet package artifact
       uses: actions/upload-artifact@v4
