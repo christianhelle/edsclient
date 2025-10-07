@@ -282,6 +282,10 @@ dotnet build
 dotnet test
 ```
 
+### Publishing to NuGet
+
+This repository uses [Trusted Publishing](docs/NUGET_TRUSTED_PUBLISHING.md) for secure NuGet package releases. This eliminates the need for long-lived API keys and uses short-lived tokens issued by GitHub Actions. See the [Trusted Publishing documentation](docs/NUGET_TRUSTED_PUBLISHING.md) for setup instructions.
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
