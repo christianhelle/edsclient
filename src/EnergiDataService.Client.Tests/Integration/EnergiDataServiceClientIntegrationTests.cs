@@ -24,8 +24,7 @@ public class EnergiDataServiceClientIntegrationTests
         Assert.All(result.Records, record => 
         {
             Assert.Equal("DK1", record.PriceArea);
-            Assert.True(record.DayAheadPriceEur > 0);
-            Assert.True(record.DayAheadPriceDkk > 0);
+            // Note: Energy prices can be negative in some cases
             Assert.NotEqual(default(DateTime), record.TimeUtc);
             Assert.NotEqual(default(DateTime), record.TimeDk);
         });
@@ -49,8 +48,7 @@ public class EnergiDataServiceClientIntegrationTests
         Assert.All(result.Records, record => 
         {
             Assert.Equal("DK2", record.PriceArea);
-            Assert.True(record.DayAheadPriceEur >= 0); // Prices can be negative in some cases
-            Assert.True(record.DayAheadPriceDkk != 0);
+            // Note: Energy prices can be negative in some cases
             Assert.NotEqual(default(DateTime), record.TimeUtc);
             Assert.NotEqual(default(DateTime), record.TimeDk);
         });

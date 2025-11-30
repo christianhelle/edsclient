@@ -30,11 +30,12 @@ public class EnergiDataServiceClient
     /// Gets day-ahead prices for the specified price areas
     /// </summary>
     /// <param name="priceAreas">List of price areas to retrieve (e.g., "DK1", "DK2")</param>
-    /// <param name="limit">Maximum number of records to retrieve (default: 100)</param>
+    /// <param name="limit">Maximum number of records to retrieve (default: 100, must be greater than 0)</param>
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>Day-ahead price response</returns>
     /// <exception cref="ArgumentNullException">Thrown when priceAreas is null</exception>
     /// <exception cref="ArgumentException">Thrown when priceAreas is empty</exception>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown when limit is less than or equal to 0</exception>
     /// <exception cref="HttpRequestException">Thrown when the HTTP request fails</exception>
     public async Task<DayAheadPriceResponse> GetDayAheadPricesAsync(
         IEnumerable<string> priceAreas,
@@ -43,6 +44,9 @@ public class EnergiDataServiceClient
     {
         if (priceAreas == null)
             throw new ArgumentNullException(nameof(priceAreas));
+
+        if (limit <= 0)
+            throw new ArgumentOutOfRangeException(nameof(limit), limit, "Limit must be greater than 0");
 
         var priceAreaList = priceAreas.ToList();
         if (!priceAreaList.Any())
@@ -53,10 +57,10 @@ public class EnergiDataServiceClient
         
         var url = $"{BaseUrl}/dataset/DayAheadPrices?filter={encodedFilter}&limit={limit}";
 
-        var response = await _httpClient.GetAsync(url, cancellationToken);
+        var response = await _httpClient.GetAsync(url, cancellationToken).ConfigureAwait(false);
         response.EnsureSuccessStatusCode();
 
-        var content = await response.Content.ReadAsStringAsync();
+        var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
         var result = JsonSerializer.Deserialize<DayAheadPriceResponse>(content, _jsonOptions);
 
         return result ?? throw new InvalidOperationException("Failed to deserialize response");
@@ -77,6 +81,6 @@ public class EnergiDataServiceClient
         if (string.IsNullOrWhiteSpace(priceArea))
             throw new ArgumentException("Price area cannot be null or empty", nameof(priceArea));
 
-        return await GetDayAheadPricesAsync(new[] { priceArea }, limit, cancellationToken);
+        return await GetDayAheadPricesAsync(new[] { priceArea }, limit, cancellationToken).ConfigureAwait(false);
     }
 }
