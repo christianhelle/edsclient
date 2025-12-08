@@ -198,6 +198,22 @@ public class EnergiDataServiceClientTests
             () => client.GetDayAheadPricesAsync(Array.Empty<string>()));
     }
 
+    [Theory]
+    [InlineData(0)]
+    [InlineData(-1)]
+    [InlineData(-100)]
+    public async Task GetDayAheadPricesAsync_WithInvalidLimit_ThrowsArgumentOutOfRangeException(int limit)
+    {
+        // Arrange
+        var mockHttp = new MockHttpMessageHandler();
+        var httpClient = mockHttp.ToHttpClient();
+        var client = new EnergiDataServiceClient(httpClient);
+
+        // Act & Assert
+        await Assert.ThrowsAsync<ArgumentOutOfRangeException>(
+            () => client.GetDayAheadPricesAsync("DK1", limit: limit));
+    }
+
     [Fact]
     public async Task GetDayAheadPricesAsync_WithHttpError_ThrowsHttpRequestException()
     {
